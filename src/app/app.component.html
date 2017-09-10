@@ -1,3 +1,9 @@
-<h1>
-  {{title}}
-</h1>
+<h1> Acronymn Search Tool </h1>
+
+<input type="text" placeholder="Search.." [(ngModel)]="query" (ngModelChange)="search()">
+
+<div class="results" *ngIf="results.length">
+	<div class="result" *ngFor="let result of results">
+		<p> Key: {{result.title}}</p>
+	</div>
+</div>
