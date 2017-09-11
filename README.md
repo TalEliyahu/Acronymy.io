@@ -1,8 +1,8 @@
-# Acronym
+# Acronym Abbreviations Live Search Tool
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.4.
+This is an application that will allow you to search the abbreviations of any acronym. You can add 
 
-## Development server
+## Instructions
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 

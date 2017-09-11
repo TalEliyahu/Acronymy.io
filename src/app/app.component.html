@@ -2,8 +2,10 @@
 
 <input type="text" placeholder="Search.." [(ngModel)]="query" (ngModelChange)="search()">
 
+<input type="file" placeholder="Upload File" (change)="fileUploaded($event)"> {{progress}}
+<div class="error" style="color: red">{{error}}</div>
 <div class="results" *ngIf="results.length">
 	<div class="result" *ngFor="let result of results">
 		<p> Key: {{result.title}}</p>
 	</div>
-</div>
+</div>	
