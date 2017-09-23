@@ -1,0 +1,36 @@
+.search-area {
+	background: #383835;
+    background-size: cover;
+    color: wheat;
+    border-radius: 0;
+    letter-spacing: 2px;
+}
+
+.search-area h1 {
+	letter-spacing: 5px;
+	text-transform: uppercase;
+}
+
+.search-area .form-control {
+	padding: 1rem;
+}
+
+.search-area .filter-toggle {
+	padding-bottom: 2px;
+    border-bottom: 1px solid;
+    cursor: pointer;
+}
+
+.search-area .advance-filters {
+	opacity: 0;
+	visibility: hidden;
+	height: 0;
+	overflow: hidden;
+	transition: opacity 1s linear, visibility 1s linear, height 0.5s linear;
+}
+
+.search-area .advance-filters.show {
+	opacity: 1;
+	visibility: visible;
+	height: 150px;
+}

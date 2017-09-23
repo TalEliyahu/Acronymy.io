@@ -1,11 +1,61 @@
-<h1> Acronymn Search Tool </h1>
-
-<input type="text" placeholder="Search.." [(ngModel)]="query" (ngModelChange)="search()">
-
-<input type="file" placeholder="Upload File" (change)="fileUploaded($event)"> {{progress}}
-<div class="error" style="color: red">{{error}}</div>
-<div class="results" *ngIf="results.length">
-	<div class="result" *ngFor="let result of results">
-		<p> Key: {{result.title}}</p>
+<section class="jumbotron search-area">
+	<div class="d-flex flex-row justify-content-center text-center">
+		<div class="col-md-5">
+			<h1>Acronymy</h1>
+			<p>Your personalized acronym's search engine</p>
+			<div class="form-group">
+				<input class="form-control form-control-lg" type="text" placeholder="Start your search..." [(ngModel)]="query" (ngModelChange)="search()">
+			</div>
+			<div class="text-left">
+				<div class="advance-filters {{show_filters ? 'show': ''}}">
+					<ul style="padding: 0; list-style-type: none">
+						<li>
+							<div class="form-check">
+								<label class="form-check-label">
+									<input class="form-check-input" type="checkbox">
+									Category 1
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="form-check">
+								<label class="form-check-label">
+									<input class="form-check-input" type="checkbox">
+									Category 2
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="form-check">
+								<label class="form-check-label">
+									<input class="form-check-input" type="checkbox">
+									Category 3
+								</label>
+							</div>
+						</li>
+						<li>
+							<input type="file" placeholder="Upload File" (change)="fileUploaded($event)"> {{progress}}
+						</li>
+					</ul>
+				</div>
+				<a class="cursor-pointer filter-toggle" (click)="toggleFilters()">
+					Show Advance Filters 
+				</a>
+			</div>
+		</div>
 	</div>
-</div>	
+</section>
+
+<section class="search-result">
+	<div class="container">
+		<!-- <input type="text" placeholder="Search.." [(ngModel)]="query" (ngModelChange)="search()">
+		<input type="file" placeholder="Upload File" (change)="fileUploaded($event)"> {{progress}}
+		<div class="error" style="color: red">{{error}}</div>	 -->
+		
+		<div class="results" *ngIf="results.length">
+			<div class="result" *ngFor="let result of results">
+				<p> Key: {{result.title}}</p>
+			</div>
+		</div>
+	</div>
+</section>

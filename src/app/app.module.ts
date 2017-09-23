@@ -2,9 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { PapaParseModule } from 'ngx-papaparse';
 
 import { AppComponent } from './app.component';
 import { FuseService } from './services/fuse';
+import { XlsxToJsonService } from './services/xls';
 
 @NgModule({
   declarations: [
@@ -13,9 +15,10 @@ import { FuseService } from './services/fuse';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    PapaParseModule
   ],
-  providers: [ FuseService ],
+  providers: [ FuseService, XlsxToJsonService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
