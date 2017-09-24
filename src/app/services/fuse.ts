@@ -9,9 +9,12 @@ import * as Fuse from 'fuse.js';
 
 @Injectable()
 export class FuseService {
+	files: any[] = [];
+	included_files: any[] = [];
 	data: any[] = [];
 	options: any = {};
 	fuse: any;
+	dir_path: string = "/api/json/";
 
 	constructor (private http: Http) {
 		this.options = {
@@ -22,36 +25,63 @@ export class FuseService {
 		  	maxPatternLength: 32,
 		  	minMatchCharLength: 1,
 		  	keys: [
-		    	"title",
-		    	"author.firstName"
+		    	"key",
+		    	"Key"
 			]
 		};
+
+		// this.categories = [ "data", "data1", "data2", "current-full" ];
 	}
 
-	init(): void {
-		this.getDataFromJSON().subscribe(
-			resp => {
-				this.data = resp;
-				this.fuse = new Fuse(resp, this.options);
-			}, 
-			error => {
+	init(files: any[]): void {
+		this.files = files;
+		this.included_files = files;
+		// this.getDataFromJSON().subscribe(
+		// 	resp => {
+		// 		this.data = resp;
+		// 		this.fuse = new Fuse(resp, this.options);
+		// 	}, 
+		// 	error => {
 
-			}
-		);
+		// 	}
+		// );
 	}
 
-	getDataFromJSON(): Observable<any> {
-		return this.http.get("./assets/data.json")
+	getDataFromJSON(file): Observable<any> {
+		return this.http.get(this.dir_path+file)
 				.map((resp: any) => {
 					return resp.json()
 				})
 				.catch((err): ObservableInput<any> => {
-					return Observable.throw(err.json());
+					return Observable.throw(err);
 				})
 	}
 
 	searchAcronym(query) {
-		var results = this.fuse.search(query);
+		var results = [];
+		var categories = [];
+		for ( var i = 0; i < this.included_files.length; i++) {
+			var category = this.getCategory(this.included_files[i]);
+			categories.push(category);
+
+			this.getDataFromJSON(this.included_files[i]).subscribe((resp) => {
+				this.fuse = new Fuse(resp, this.options);
+				
+				var result:any = {};
+				result.category = '';
+				result.result = this.fuse.search(query);
+
+				results.push(result);
+			})
+		}
+		// var results = this.fuse.search(query);
+		console.log(results);
 		return results;
 	}
+
+	getCategory(file): string {
+      var category = file.split(".");
+      category = category.slice(0, -1);
+      return category[0];
+  	}
 }

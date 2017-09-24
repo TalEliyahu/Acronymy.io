@@ -20,6 +20,7 @@ app.use(function (req, res, next) {
 })
 
 app.use('/api', api);
+app.use('/json', api);
 
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, 'dist/index.html'));

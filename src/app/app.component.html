@@ -9,27 +9,11 @@
 			<div class="text-left">
 				<div class="advance-filters {{show_filters ? 'show': ''}}">
 					<ul style="padding: 0; list-style-type: none">
-						<li>
+						<li *ngFor="let category of categories; let i=index">
 							<div class="form-check">
 								<label class="form-check-label">
-									<input class="form-check-input" type="checkbox">
-									Category 1
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="form-check">
-								<label class="form-check-label">
-									<input class="form-check-input" type="checkbox">
-									Category 2
-								</label>
-							</div>
-						</li>
-						<li>
-							<div class="form-check">
-								<label class="form-check-label">
-									<input class="form-check-input" type="checkbox">
-									Category 3
+									<input class="form-check-input" type="checkbox" checked>
+									{{category}}
 								</label>
 							</div>
 						</li>
@@ -53,8 +37,14 @@
 		<div class="error" style="color: red">{{error}}</div>	 -->
 		
 		<div class="results" *ngIf="results.length">
-			<div class="result" *ngFor="let result of results">
-				<p> Key: {{result.title}}</p>
+			<div class="result" *ngFor="let next_cat of results">
+				<h3>{{next_cat.category}}</h3>
+				<div class="cat-result">
+					<div *ngFor="let next_item of next_cat.result">
+						<b style="text-transform: uppercase;">{{next_item.key}}</b>
+						<p style="text-transform: capitalize;">{{next_item.abbreviation}}</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

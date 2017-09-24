@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require("path");
 const router = express.Router();
 const multer = require('multer');
 const fs = require('fs');
@@ -7,16 +8,23 @@ var excel2json = require('convert-excel-to-json');
 
 var upload_dir = './uploads';
 var save_dir = './src/json';
+var root_dir = path.dirname(require.main.filename);
 
 var upload = multer({dest: upload_dir});
 
-router.get('/', (req, res) => {
-	res.send("API works");
+router.get('/json/:file', (req, res) => {
+	var file = req.params.file;
+	res.sendFile(path.join(__dirname, "../../", save_dir+"/"+file));
 })
 
-router.get('/categories', (req, res) => {
-	
-	res.send("API works");
+router.get('/files', (req, res) => {
+	fs.readdir(save_dir, (error, files) => {
+		if(error) {
+			res.status(200).send({'success': false});
+		} else {
+			res.status(200).send({'success': true, 'files': files});
+		}
+	})
 })
 
 router.post('/upload', upload.single('file'), (req, res) => {

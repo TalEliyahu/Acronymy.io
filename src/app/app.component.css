@@ -24,13 +24,13 @@
 .search-area .advance-filters {
 	opacity: 0;
 	visibility: hidden;
-	height: 0;
+	max-height: 0;
 	overflow: hidden;
-	transition: opacity 1s linear, visibility 1s linear, height 0.5s linear;
+	transition: opacity 1s linear, visibility 1s linear, max-height 0.5s linear;
 }
 
 .search-area .advance-filters.show {
 	opacity: 1;
 	visibility: visible;
-	height: 150px;
+	max-height: 500px;
 }

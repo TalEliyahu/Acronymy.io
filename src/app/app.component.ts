@@ -24,18 +24,29 @@ export class AppComponent implements OnInit {
   error: string = '';
   extension: string = '';
   show_filters: boolean = false;
+  files: any[] = [];
+  categories: any[] = [];
 
   constructor( private fuseService: FuseService, private http: Http,  private csvParser: PapaParseService, private xlsParser: XlsxToJsonService ) {
 
   }
 
   ngOnInit() {
-    this.fuseService.init();
-
     this.searchAcronym.debounceTime(200).subscribe(()=> {
         this.results = this.fuseService.searchAcronym(this.query);
     });
 
+    this.http.get('/api/files').subscribe((resp: any) => {
+      resp = JSON.parse(resp.text());
+      if (resp.success) {
+        this.files = resp.files;
+      }
+      this.fuseService.init(this.files);
+      this.getCategories();
+    }, (error) => {
+      console.log(error);
+      this.fuseService.init(this.files);
+    })
   }
 
   search(): void {
@@ -70,54 +81,63 @@ export class AppComponent implements OnInit {
     }
   }
 
-  readFile(event, context): void {  
-    var data:any = event.target;
-    data = data.result;
+  // readFile(event, context): void {  
+  //   var data:any = event.target;
+  //   data = data.result;
 
-    var json_data = null;
+  //   var json_data = null;
 
-    switch (context.extension) {
-      case 'json':
-        if (this.isValidJSON(data)) {
-          json_data = JSON.parse(data);
-        } 
-        break;
-      case 'csv':
-          this.csvParser.parse(data, {
-            header: true,
-            skipEmptyLines: true,
-            fastMode: true,
-            complete: (results, file) => {
-              console.log('parsed', results, file);
-              // console.log(JSON.stringify(results.data));
-            },
-            error: (error, file) => {
-              console.log(error, file);
-              alert (error);
-            }
-          })
-        break;
-      case 'xlsx':
-        this.xlsParser.processFileToJson({}, this.file).subscribe(data => {
-          console.log("xls data", data);
-        })
-        break;
-    }
+  //   switch (context.extension) {
+  //     case 'json':
+  //       if (this.isValidJSON(data)) {
+  //         json_data = JSON.parse(data);
+  //       } 
+  //       break;
+  //     case 'csv':
+  //         this.csvParser.parse(data, {
+  //           header: true,
+  //           skipEmptyLines: true,
+  //           fastMode: true,
+  //           complete: (results, file) => {
+  //             console.log('parsed', results, file);
+  //             // console.log(JSON.stringify(results.data));
+  //           },
+  //           error: (error, file) => {
+  //             console.log(error, file);
+  //             alert (error);
+  //           }
+  //         })
+  //       break;
+  //     case 'xlsx':
+  //       this.xlsParser.processFileToJson({}, this.file).subscribe(data => {
+  //         console.log("xls data", data);
+  //       })
+  //       break;
+  //   }
 
-    console.log(json_data);
-  }
+  //   console.log(json_data);
+  // }
 
-  updateProgress(event): void {
-    if (event.lengthComputable) {
-      var progress = Math.round((event.loaded / event.total) * 100); 
-      this.progress = progress + '%';
-    }
-  }
+  // updateProgress(event): void {
+  //   if (event.lengthComputable) {
+  //     var progress = Math.round((event.loaded / event.total) * 100); 
+  //     this.progress = progress + '%';
+  //   }
+  // }
 
-  onError(event): void {
-    console.log(event);
-    alert(event);
-  }
+  // onError(event): void {
+  //   console.log(event);
+  //   alert(event);
+  // }
+  
+  // isValidJSON(data): boolean {
+  //   try {
+  //     JSON.parse(data);
+  //   } catch(evt) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
   isValid(file): boolean {
     var valid = true;
@@ -138,16 +158,15 @@ export class AppComponent implements OnInit {
     return valid;
   }
 
-  isValidJSON(data): boolean {
-    try {
-      JSON.parse(data);
-    } catch(evt) {
-      return false;
-    }
-    return true;
+  toggleFilters(): void {
+    this.show_filters = !this.show_filters;
   }
 
-  toggleFilters() {
-    this.show_filters = !this.show_filters;
+  getCategories(): void {
+    for (var i = 0; i< this.files.length; i++) {
+      var category = this.files[i].split(".");
+      category = category.slice(0, -1);
+      this.categories.push(category);
+    }
   }
 }
