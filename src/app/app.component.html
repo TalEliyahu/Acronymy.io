@@ -3,7 +3,8 @@
 		<div class="col-md-5">
 			<h1>Acronymy</h1>
 			<p>Your personalized acronym's search engine</p>
-			<div class="form-group">
+			<div class="form-group d-flex flex-row align-items-center search-bar">
+				<i class="fa fa-search"></i>
 				<input class="form-control form-control-lg" type="text" placeholder="Start your search..." [(ngModel)]="query" (ngModelChange)="search()">
 			</div>
 			<div class="text-left">
@@ -17,13 +18,13 @@
 								</label>
 							</div>
 						</li>
-						<li>
+						<li class="upload-file">
 							<input type="file" placeholder="Upload File" (change)="fileUploaded($event)"> {{progress}}
 						</li>
 					</ul>
 				</div>
 				<a class="cursor-pointer filter-toggle" (click)="toggleFilters()">
-					Show Advance Filters 
+					{{!show_filters ? 'Show' : 'Hide'}} Advance Filters <i class="fa {{!show_filters ? 'fa-chevron-down' : 'fa-chevron-up'}}"></i> 
 				</a>
 			</div>
 		</div>
@@ -31,19 +32,17 @@
 </section>
 
 <section class="search-result">
-	<div class="container">
-		<!-- <input type="text" placeholder="Search.." [(ngModel)]="query" (ngModelChange)="search()">
-		<input type="file" placeholder="Upload File" (change)="fileUploaded($event)"> {{progress}}
-		<div class="error" style="color: red">{{error}}</div>	 -->
-		
-		<div class="results" *ngIf="results.length">
-			<div class="result" *ngFor="let next_cat of results">
-				<h3>{{next_cat.category}}</h3>
-				<div class="cat-result">
-					<div *ngFor="let next_item of next_cat.result">
-						<b style="text-transform: uppercase;">{{next_item.key}}</b>
-						<p style="text-transform: capitalize;">{{next_item.abbreviation}}</p>
-					</div>
+	<!-- <input type="text" placeholder="Search.." [(ngModel)]="query" (ngModelChange)="search()">
+	<input type="file" placeholder="Upload File" (change)="fileUploaded($event)"> {{progress}}
+	<div class="error" style="color: red">{{error}}</div>	 -->
+	
+	<div class="results" *ngIf="results.length">
+		<div class="result col-md-5" *ngFor="let next_cat of results">
+			<div *ngIf="next_cat.result && next_cat.result.length">
+				<!-- <h3>{{next_cat.category}}</h3> -->
+				<div class="cat-result" *ngFor="let next_item of next_cat.result">
+					<b style="text-transform: uppercase;">{{next_item.key || next_item.Key}}</b>
+					<p style="text-transform: capitalize;">{{next_item.abbreviation || next_item.Abbreviation}}</p>
 				</div>
 			</div>
 		</div>

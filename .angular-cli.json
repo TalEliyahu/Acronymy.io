@@ -20,7 +20,8 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "./assets/css/bootstrap.min.css"
+        "./assets/css/bootstrap.min.css",
+        "../node_modules/font-awesome/css/font-awesome.min.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
