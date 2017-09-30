@@ -67,3 +67,10 @@
 .search-result .cat-result {
 	padding: 12px;
 }
+
+.error {
+	font-size: 12px;
+    letter-spacing: 1px;
+    color: red;
+    font-weight: bold;
+}

@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { Subject } from 'rxjs/Subject';
 import { FuseService } from './services/fuse';
-import { XlsxToJsonService } from './services/xls';
-import { PapaParseService } from 'ngx-papaparse';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -27,7 +25,7 @@ export class AppComponent implements OnInit {
   files: any[] = [];
   categories: any[] = [];
 
-  constructor( private fuseService: FuseService, private http: Http,  private csvParser: PapaParseService, private xlsParser: XlsxToJsonService ) {
+  constructor( private fuseService: FuseService, private http: Http ) {
 
   }
 
@@ -64,84 +62,26 @@ export class AppComponent implements OnInit {
 
     if(this.isValid(file)) {
       this.http.post('/api/upload', form_data)
-        .subscribe(resp => {
+        .subscribe((resp:any) => {
+          resp = resp.json();
+          
+          var fileInput:any = document.getElementById("file-input");
+          fileInput.value = "";
+
+          if(resp.success && resp.files && resp.files.length) {
+            this.fuseService.addNewFiles(resp.files);
+            this.files = this.files.concat(resp.files);
+            this.getCategories();
+          }
           console.log("API response", resp);
           console.log("i am here");
         })
-
-      // var context = this;
-      // var reader = new FileReader();
-      // reader.onload = function (event) {
-      //   context.readFile(event, context);
-      // };
-      // reader.onprogress = this.updateProgress;
-      // reader.onerror = this.onError;
-      // reader.readAsBinaryString(file);
-
     }
   }
 
-  // readFile(event, context): void {  
-  //   var data:any = event.target;
-  //   data = data.result;
-
-  //   var json_data = null;
-
-  //   switch (context.extension) {
-  //     case 'json':
-  //       if (this.isValidJSON(data)) {
-  //         json_data = JSON.parse(data);
-  //       } 
-  //       break;
-  //     case 'csv':
-  //         this.csvParser.parse(data, {
-  //           header: true,
-  //           skipEmptyLines: true,
-  //           fastMode: true,
-  //           complete: (results, file) => {
-  //             console.log('parsed', results, file);
-  //             // console.log(JSON.stringify(results.data));
-  //           },
-  //           error: (error, file) => {
-  //             console.log(error, file);
-  //             alert (error);
-  //           }
-  //         })
-  //       break;
-  //     case 'xlsx':
-  //       this.xlsParser.processFileToJson({}, this.file).subscribe(data => {
-  //         console.log("xls data", data);
-  //       })
-  //       break;
-  //   }
-
-  //   console.log(json_data);
-  // }
-
-  // updateProgress(event): void {
-  //   if (event.lengthComputable) {
-  //     var progress = Math.round((event.loaded / event.total) * 100); 
-  //     this.progress = progress + '%';
-  //   }
-  // }
-
-  // onError(event): void {
-  //   console.log(event);
-  //   alert(event);
-  // }
-  
-  // isValidJSON(data): boolean {
-  //   try {
-  //     JSON.parse(data);
-  //   } catch(evt) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
-
   isValid(file): boolean {
     var valid = true;
-    var validTypes = ['json', 'csv', 'xlsx'];
+    var validTypes = ['json', 'csv', 'xlsx', 'zip'];
     var name = file.name;
     var ext = name.split('.');
     this.extension = ext[1];
@@ -152,7 +92,7 @@ export class AppComponent implements OnInit {
       valid = false;
     } else if(validTypes.indexOf(this.extension) < 0) {
       this.error = 'File type not allowed';
-      false;
+      valid = false;
     }
 
     return valid;
@@ -163,10 +103,21 @@ export class AppComponent implements OnInit {
   }
 
   getCategories(): void {
+    this.categories = [];
     for (var i = 0; i< this.files.length; i++) {
-      var category = this.files[i].split(".");
-      category = category.slice(0, -1);
-      this.categories.push(category);
+      var name = this.files[i].split(".");
+      name = name.slice(0, -1);
+
+      this.categories.push({
+        "name": name,
+        "selected": true,
+        "file": this.files[i]
+      });
     }
+  }
+
+  toggleCategorySelection(index): void {
+    this.categories[index].selected = !this.categories[index].selected;
+    this.fuseService.toggleFileInclusion(this.categories[index].file);
   }
 }
