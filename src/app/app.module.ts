@@ -6,7 +6,6 @@ import { PapaParseModule } from 'ngx-papaparse';
 
 import { AppComponent } from './app.component';
 import { FuseService } from './services/fuse';
-import { XlsxToJsonService } from './services/xls';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,7 @@ import { XlsxToJsonService } from './services/xls';
     HttpModule,
     PapaParseModule
   ],
-  providers: [ FuseService, XlsxToJsonService ],
+  providers: [ FuseService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

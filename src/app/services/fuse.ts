@@ -46,6 +46,13 @@ export class FuseService {
 		// );
 	}
 
+	addNewFiles(files: any[]): void {
+		if (files && files.length) {
+			this.files = this.files.concat(files);
+			this.included_files = this.included_files.concat(files);
+		}
+	}
+
 	getDataFromJSON(file): Observable<any> {
 		return this.http.get(this.dir_path+file)
 				.map((resp: any) => {
@@ -73,7 +80,7 @@ export class FuseService {
 				results.push(result);
 			})
 		}
-		// var results = this.fuse.search(query);
+
 		console.log(results);
 		return results;
 	}
@@ -82,5 +89,16 @@ export class FuseService {
       var category = file.split(".");
       category = category.slice(0, -1);
       return category[0];
+  	}
+
+  	toggleFileInclusion(file): void {
+  		var present = this.included_files.indexOf(file) > -1;
+  		if (present) {
+  			this.included_files = this.included_files.filter((next_file) => {
+  				return next_file != file;
+  			})
+  		} else {
+  			this.included_files.push(file);
+  		}
   	}
 }
