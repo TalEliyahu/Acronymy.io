@@ -11,7 +11,7 @@ Follow this tutorial and [install NodeJS](https://docs.npmjs.com/getting-started
 Install Angular CLI package by following this command ```npm install -g @angular/cli```
 
 ## Install Http Server
-Make sure you have installed http server e.g Apache and its running.
+Make sure you have installed http server e.g Apache and its running. You can test this by typing http://localhost:8080 in browser.
 
 ## Download Acronymy
 
