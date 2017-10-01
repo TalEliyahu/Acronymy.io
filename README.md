@@ -27,3 +27,11 @@ Move into the application directory and install NodeJS packages by running the c
 After install NodeJS packages you can build the app by this command ```ng build``` in the application directory. If you get any error make sure NodeJS and Angular-cli is properly installed.
 
 After that run this command ```node server.js``` in application directory and then browser http://localhost:3000 in browser. You should see the application running.
+
+## Personalizing Acronym Seach
+
+You can use advance search to select/unselect the categories you want to be included in seach. You can also upload your json, csv, xlsx and zip files to be included in search. The file format should be as follows:
+
+- Set the **Acronym** column name as **Key** (Case sensitive)
+- Set the **Abbreviation** column name as *Abbreviation* (Case sensitive)
+- Set the column name you want to show for detail as **Description** (Case sensitive)
