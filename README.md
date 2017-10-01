@@ -38,3 +38,8 @@ You can use advance search to select/unselect the categories you want to be incl
 - Set the **Acronym** column name as **Key** (Case sensitive)
 - Set the **Abbreviation** column name as **Abbreviation** (Case sensitive)
 - Set the column name you want to show for detail as **Description** (Case sensitive)
+
+
+## Deployment
+
+To deploy follow this [tutorial](https://www.1and1.com/cloud-community/learn/application/misc/set-up-a-nodejs-app-for-a-website-with-apache-on-ubuntu-1604/)
