@@ -33,5 +33,5 @@ After that run this command ```node server.js``` in application directory and th
 You can use advance search to select/unselect the categories you want to be included in seach. You can also upload your json, csv, xlsx and zip files to be included in search. The file format should be as follows:
 
 - Set the **Acronym** column name as **Key** (Case sensitive)
-- Set the **Abbreviation** column name as *Abbreviation* (Case sensitive)
+- Set the **Abbreviation** column name as **Abbreviation** (Case sensitive)
 - Set the column name you want to show for detail as **Description** (Case sensitive)
