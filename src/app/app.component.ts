@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { Subject } from 'rxjs/Subject';
 import { FuseService } from './services/fuse';
@@ -13,7 +13,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
 	query: string = "";
   results: any[] = [];
   searchAcronym = new Subject<string>();
@@ -29,8 +29,6 @@ export class AppComponent implements OnInit {
     var body:any = document.getElementsByTagName('body')[0];
     body.classList = "";
 
-    // var loader:any = document.getElementsByClassName('loader')[0];
-    // loader.classList = "";
     var ele: any = document.getElementsByClassName('loader2')[0];
     ele.style.display = "none";
   }
@@ -54,10 +52,32 @@ export class AppComponent implements OnInit {
       // get categories by splitting the extension from file names
       this.getCategories();
       this.query = "STE";
-      this.search();
+      
+      this.results = [
+        {
+          name: "",
+          result: [{
+            "Key": "STE",
+            "Abbreviation": "Singapore Tech Entrepreneurs"
+          }]
+        }
+      ];
+
     }, (error) => {
       console.log(error);
       this.fuseService.init(this.files);
+    })
+  }
+
+  ngAfterViewInit(): void {
+    var context = this;
+    window.addEventListener("click", function() {
+      context.show_filters = false;
+    })
+
+    var section = document.getElementById("main-section");
+    section.addEventListener("click", function($event) {
+      $event.stopPropagation();
     })
   }
 

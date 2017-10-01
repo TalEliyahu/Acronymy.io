@@ -1,13 +1,13 @@
 <section class="jumbotron search-area">
 	<div class="d-flex flex-row justify-content-center text-center">
-		<div class="col-md-5">
-			<div class="d-flex flex-row flex-wrap align-items-center justify-content-center">
+		<div class="col-md-5" id="main-section">
+			<div class="">
 				<h1>Acronymy</h1>
 				<!-- Place this tag where you want the button to render. -->
-				<a class="github-button" href="https://github.com/Singapore-Tech-Entrepreneurs/acronymy" data-show-count="true" aria-label="Star STE/Acronymy on GitHub" style="margin: 10px 0">Star</a>
+				<a class="github-button" href="https://github.com/Singapore-Tech-Entrepreneurs/acronymy" data-show-count="true" data-size="large" aria-label="Star STE/Acronymy on GitHub" style="margin: 10px 0">Star</a>
 
 				<!-- Place this tag where you want the button to render. -->
-				<a class="github-button" href="https://github.com/Singapore-Tech-Entrepreneurs/acronymy" data-show-count="true" aria-label="Fork STE/Acronymy on GitHub" style="margin: 10px 0">Fork</a>
+				<a class="github-button" href="https://github.com/Singapore-Tech-Entrepreneurs/acronymy" data-show-count="true" data-size="large"  aria-label="Fork STE/Acronymy on GitHub" style="margin: 10px 0">Fork</a>
 			</div>
 			
 			<p>Your personalized acronyms search engine</p>
@@ -24,14 +24,17 @@
 						</li>
 						<li class="upload-file d-flex flex-row justify-content-between align-items-center">
 							<!-- <input id="file-input" type="file" placeholder="Upload File" (change)="fileUploaded($event)"> -->
-							<div class="input-group">
-				                <label class="input-group-btn">
-				                    <span class="btn btn-primary">
-				                        Browse&hellip; <input id="file-input" type="file" style="display: none;" (change)="fileUploaded($event)">
-				                    </span>
-				                </label>
-				                <input type="text" class="form-control" value="{{file?.name}}" readonly>
-				            </div>
+							<div>
+								<div class="input-group">
+					                <label class="input-group-btn">
+					                    <span class="btn btn-primary">
+					                        Browse&hellip; <input id="file-input" type="file" style="display: none;" (change)="fileUploaded($event)">
+					                    </span>
+					                </label>
+					                <input type="text" class="form-control" value="{{file?.name}}" readonly>
+					            </div>
+					            <small>Only json, csv, xlsx and zip files are allowed</small>
+					        </div>
 							<span class="error">{{error}}</span>
 						</li>
 					</ul>
