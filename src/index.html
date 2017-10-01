@@ -11,8 +11,68 @@
   <link rel="icon" type="image/x-icon" href="./assets/imgs/favicon.png">
   <!-- <link rel="stylesheet" src="/assets/css/bootstrap.min.css">
   <link src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+  <style>
+    body.loading{
+      position: fixed;
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+      max-height: 100%;
+      background: #383835;
+      color: wheat;
+    }
+    .loader2 {
+      text-align: center;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+
+    }
+    .loader2 {
+      text-align: center;
+      opacity: 1;
+      transition: visibility 0s, opacity 0.5s linear;
+    }
+    .loader2 img{
+      margin-top: 30px;
+      width: 250px;
+    }
+    .loader2 .loader{
+      margin: auto;
+    }
+    .loader {
+	  	border: 5px solid #f3f3f3;
+	    border-radius: 50%;
+	    border-top: 5px solid #7f7f78;
+	    width: 50px;
+	    height: 50px;
+	    -webkit-animation: spin 2s linear infinite;
+	  	animation: spin 2s linear infinite;
+	    margin: auto;
+	}
+
+	@-webkit-keyframes spin {
+	  	0% { -webkit-transform: rotate(0deg); }
+	  	100% { -webkit-transform: rotate(360deg); }
+	}
+
+	@keyframes spin {
+	  	0% { transform: rotate(0deg); }
+	  	100% { transform: rotate(360deg); }
+	}
+
+  </style>
 </head>
-<body>
-  <app-root>Loading...</app-root>
+<body class="loading">
+	<div class='loader2'>
+		<h1 style="margin-bottom: 20px">Acronymy</h1>
+	    <div class='loader'></div>
+	</div>
+
+  	<app-root></app-root>
+
+  	<script async defer src="https://buttons.github.io/buttons.js"></script>
+
 </body>
 </html>

@@ -26,7 +26,11 @@ export class AppComponent implements OnInit {
   categories: any[] = [];
 
   constructor( private fuseService: FuseService, private http: Http ) {
+    var body:any = document.getElementsByTagName('body')[0];
+    body.classList = "";
 
+    var loader:any = document.getElementsByClassName('loader')[0];
+    loader.classList = "";
   }
 
   ngOnInit() {

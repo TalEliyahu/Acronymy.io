@@ -1,4 +1,4 @@
-# Acronymy | Your personalized acronym's search engine
+# Acronymy | Your personalized acronyms search engine
 
 This is an application that will allow you to search the abbreviations of any acronym.
 

@@ -1,8 +1,16 @@
 <section class="jumbotron search-area">
 	<div class="d-flex flex-row justify-content-center text-center">
 		<div class="col-md-5">
-			<h1>Acronymy</h1>
-			<p>Your personalized acronym's search engine</p>
+			<div class="d-flex flex-row flex-wrap align-items-center justify-content-center">
+				<h1>Acronymy</h1>
+				<!-- Place this tag where you want the button to render. -->
+				<a class="github-button" href="https://github.com/Singapore-Tech-Entrepreneurs/acronymy" data-show-count="true" aria-label="Star STE/Acronymy on GitHub" style="margin: 10px 0">Star</a>
+
+				<!-- Place this tag where you want the button to render. -->
+				<a class="github-button" href="https://github.com/Singapore-Tech-Entrepreneurs/acronymy" data-show-count="true" aria-label="Fork STE/Acronymy on GitHub" style="margin: 10px 0">Fork</a>
+			</div>
+			
+			<p>Your personalized acronyms search engine</p>
 			<div class="form-group d-flex flex-row align-items-center search-bar">
 				<i class="fa fa-search"></i>
 				<input class="form-control form-control-lg" type="text" placeholder="Start your search..." [(ngModel)]="query" (ngModelChange)="search()">
