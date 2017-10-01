@@ -13,6 +13,9 @@ Install Angular CLI package by following this command ```npm install -g @angular
 ## Install Http Server
 Make sure you have installed http server e.g Apache and its running. You can test this by typing http://localhost:8080 in browser.
 
+-To [install apache on windows](https://www.sitepoint.com/how-to-install-apache-on-windows/) follow this tutorial
+-To [install apache on linux](http://www.thatislinux.com/how-to-install-apache-webserver/) based operating system follow this tutorial
+
 ## Download Acronymy
 
 Download the [Acronymy](https://github.com/Singapore-Tech-Entrepreneurs/acronymy) app and unzip it.
