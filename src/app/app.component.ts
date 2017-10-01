@@ -29,8 +29,10 @@ export class AppComponent implements OnInit {
     var body:any = document.getElementsByTagName('body')[0];
     body.classList = "";
 
-    var loader:any = document.getElementsByClassName('loader')[0];
-    loader.classList = "";
+    // var loader:any = document.getElementsByClassName('loader')[0];
+    // loader.classList = "";
+    var ele: any = document.getElementsByClassName('loader2')[0];
+    ele.style.display = "none";
   }
 
   ngOnInit() {
