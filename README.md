@@ -1,30 +1,31 @@
-# Acronym Abbreviations Live Search Tool
+# Acronymy | Your personalized acronym's search engine
 
-This is an application that will allow you to search the abbreviations of any acronym. You can add 
+This is an application that will allow you to search the abbreviations of any acronym.
 
-## Instructions
+##Install NodeJS
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Follow this tutorial and [install NodeJS](https://docs.npmjs.com/getting-started/installing-node) based on your operating system. You can check that Node is installed by writing these commands on console:
+```
+node -v
+npm -v
+```
+##Install Angular CLI
+Install Angular CLI package by following this command ```npm install -g @angular/cli```
 
-## Code scaffolding
+##Install Http Server
+Make sure you have installed http server e.g Apache and its running.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
+##Download Acronymy
 
-## Build
+Download the [Acronymy](https://github.com/Singapore-Tech-Entrepreneurs/acronymy) app and unzip it.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+##Install NodeJS Packages
 
-## Running unit tests
+Move into the application directory and install NodeJS packages by running the command ```npm install```. 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+##Build App
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+After install NodeJS packages you can build the app by this command ```ng build``` in the application directory. If you get any error make sure NodeJS and Angular-cli is properly installed.
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
-# acronym_abbreviations_live_search_tool
+After that run this command ```node server.js``` in application directory and then browser http://localhost:3000 in browser. You should see the application running.
