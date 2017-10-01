@@ -256,3 +256,25 @@ function getNewlyUploads(old_files) {
 		})
 	})
 }
+
+var interval = 1000 * 60 * 60 * 24;
+
+setInterval(() => {
+	console.log("deleting new files");
+	var files = ["IT Standards.json", "NASDAQ.json", "NYSE.json", "airports.json", "healthcare.json", 
+				"states & territories (US).json", "stocks.json"];
+
+	getNewlyUploads(files).then((new_files) => {
+
+		for (var i = 0; i < new_files.length; i++) {
+			var file_path = path.join(__dirname, "../../", save_dir+"/"+new_files[i]);
+			fs.unlink(file_path, function(error) {
+				if(error) {
+					console.log(error);
+				}
+			})
+		}
+	}, error => {
+		console.log(error);
+	})
+}, interval);

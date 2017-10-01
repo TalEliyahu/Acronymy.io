@@ -47,6 +47,8 @@ export class AppComponent implements OnInit {
 
       // get categories by splitting the extension from file names
       this.getCategories();
+      this.query = "STE";
+      this.search();
     }, (error) => {
       console.log(error);
       this.fuseService.init(this.files);
@@ -77,6 +79,8 @@ export class AppComponent implements OnInit {
           
           var fileInput:any = document.getElementById("file-input");
           fileInput.value = "";
+
+          this.file = {};
 
           // on successful upload update fuse api with the new file and also update categories
           // to include new file in categories list immediately
@@ -139,7 +143,7 @@ export class AppComponent implements OnInit {
   toggleCategorySelection(index): void {
     // function call on select/unselect category
     // also include/exclude the category from fuse api search
-    
+
     this.categories[index].selected = !this.categories[index].selected;
     this.fuseService.toggleFileInclusion(this.categories[index].file);
   }
