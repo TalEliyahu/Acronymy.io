@@ -15,11 +15,13 @@ var root_dir = path.dirname(require.main.filename);
 
 var upload = multer({dest: upload_dir});
 
+// get a json file 
 router.get('/json/:file', (req, res) => {
 	var file = req.params.file;
 	res.sendFile(path.join(__dirname, "../../", save_dir+"/"+file));
 })
 
+// get list of all files available for search 
 router.get('/files', (req, res) => {
 	fs.readdir(save_dir, (error, files) => {
 		if(error) {
@@ -30,6 +32,7 @@ router.get('/files', (req, res) => {
 	})
 })
 
+// upload a new file 
 router.post('/upload', upload.single('file'), (req, res) => {
 	console.log(req.file);
 	getFiles().then(files => {
@@ -58,6 +61,7 @@ router.post('/upload', upload.single('file'), (req, res) => {
 
 module.exports = router;
 
+//delete uploaded file
 function deleteUploadedFile(file) {
 	fs.unlink(file.path, function(error) {
 		if(error){  
@@ -66,6 +70,7 @@ function deleteUploadedFile(file) {
 	});
 }
 
+// write data on file
 function writeFile(file, data) {
 	return new Promise((resolve, reject) => {
 		var path = save_dir+"/"+getFileName(file.originalname)+".json";
@@ -79,6 +84,7 @@ function writeFile(file, data) {
 	})
 }
 
+// read file and return data
 function readFile(file, zip) {
 	return new Promise((resolve, reject) => {
 		var ext = getFileExtension(file.originalname);
@@ -98,18 +104,21 @@ function readFile(file, zip) {
 	})
 }
 
+// get file extension
 function getFileExtension(filename) {
 	var ext = filename.split(".");
 	ext = ext[ext.length-1];
 	return ext;
 }
 
+// get file name
 function getFileName(filename) {
 	var name = filename.split(".");
 	name = name.slice(0, -1);
 	return name;
 }
 
+// parse json file data 
 function parseJSON(file, resolve, reject) {
 	var path = file.path;
 
@@ -123,6 +132,7 @@ function parseJSON(file, resolve, reject) {
 	})
 }
 
+// parse csv file data
 function parseCSV(file, resolve, reject) {
 	var path = file.path;
 
@@ -140,6 +150,7 @@ function parseCSV(file, resolve, reject) {
 		})
 }
 
+// parse xlsx file data
 function parseXLSX(file, resolve, reject) {
 	var path = file.path;
 
@@ -167,6 +178,7 @@ function parseXLSX(file, resolve, reject) {
 	resolve({"file": file, "data": JSON.stringify(result)});
 }
 
+// parse zip file data
 function parseZip(file, resolve, reject) {
 	var path = file.path;
 
@@ -219,6 +231,7 @@ function parseZip(file, resolve, reject) {
 	})
 } 
 
+// get files list in directory
 function getFiles() {
 	return new Promise((resolve, rejct) => {
 		fs.readdir(save_dir, (error, files) => {
@@ -231,6 +244,8 @@ function getFiles() {
 	})
 }
 
+
+// get files that are newly uploaded
 function getNewlyUploads(old_files) {
 	return new Promise((resolve, reject) => {
 		getFiles().then(all_files => {

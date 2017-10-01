@@ -17,6 +17,8 @@ export class FuseService {
 	dir_path: string = "/api/json/";
 
 	constructor (private http: Http) {
+		// initialize fuse api options
+
 		this.options = {
 		  	shouldSort: true,
 		  	threshold: 0,
@@ -28,25 +30,16 @@ export class FuseService {
 		    	"Key"
 			]
 		};
-
-		// this.categories = [ "data", "data1", "data2", "current-full" ];
 	}
 
 	init(files: any[]): void {
+		// set the files availabel for search
 		this.files = files;
 		this.included_files = files;
-		// this.getDataFromJSON().subscribe(
-		// 	resp => {
-		// 		this.data = resp;
-		// 		this.fuse = new Fuse(resp, this.options);
-		// 	}, 
-		// 	error => {
-
-		// 	}
-		// );
 	}
 
 	addNewFiles(files: any[]): void {
+		// call whenever new file(s) are added to search
 		if (files && files.length) {
 			this.files = this.files.concat(files);
 			this.included_files = this.included_files.concat(files);
@@ -54,6 +47,7 @@ export class FuseService {
 	}
 
 	getDataFromJSON(file): Observable<any> {
+		// get data from json for a specified file
 		return this.http.get(this.dir_path+file)
 				.map((resp: any) => {
 					return resp.json()
@@ -64,6 +58,7 @@ export class FuseService {
 	}
 
 	searchAcronym(query) {
+		// search acronymn from all files included in search and create a result set to display
 		var results = [];
 		var categories = [];
 		for ( var i = 0; i < this.included_files.length; i++) {
@@ -92,6 +87,7 @@ export class FuseService {
   	}
 
   	toggleFileInclusion(file): void {
+  		// include/exclude file if user select/unselect any category
   		var present = this.included_files.indexOf(file) > -1;
   		if (present) {
   			this.included_files = this.included_files.filter((next_file) => {

@@ -30,16 +30,22 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    // observable to handle search on query with 200 delay
     this.searchAcronym.debounceTime(200).subscribe(()=> {
         this.results = this.fuseService.searchAcronym(this.query);
     });
 
+    // get list of all files available for search
     this.http.get('/api/files').subscribe((resp: any) => {
       resp = JSON.parse(resp.text());
       if (resp.success) {
         this.files = resp.files;
       }
+
+      // initialize the fuse api with the avialble files
       this.fuseService.init(this.files);
+
+      // get categories by splitting the extension from file names
       this.getCategories();
     }, (error) => {
       console.log(error);
@@ -48,10 +54,12 @@ export class AppComponent implements OnInit {
   }
 
   search(): void {
+    // function call on changing query every time
   	this.searchAcronym.next();
   }
 
   fileUploaded(event): void {
+    // function call whenever a new file is uploaded
     var file:any = event.srcElement.files[0];
     this.file = file;
 
@@ -60,13 +68,18 @@ export class AppComponent implements OnInit {
     var form_data = new FormData();
     form_data.append('file', file, file.name);
 
+    // check if file is valid to upload
     if(this.isValid(file)) {
+      // send file to api to uplaod
       this.http.post('/api/upload', form_data)
         .subscribe((resp:any) => {
           resp = resp.json();
           
           var fileInput:any = document.getElementById("file-input");
           fileInput.value = "";
+
+          // on successful upload update fuse api with the new file and also update categories
+          // to include new file in categories list immediately
 
           if(resp.success && resp.files && resp.files.length) {
             this.fuseService.addNewFiles(resp.files);
@@ -80,6 +93,10 @@ export class AppComponent implements OnInit {
   }
 
   isValid(file): boolean {
+    // function checks if file is valid by splitting the extension
+    // also checks if size is less than 20 MB
+    // else show error
+
     var valid = true;
     var validTypes = ['json', 'csv', 'xlsx', 'zip'];
     var name = file.name;
@@ -99,10 +116,13 @@ export class AppComponent implements OnInit {
   }
 
   toggleFilters(): void {
+    // toggle advance filters option
     this.show_filters = !this.show_filters;
   }
 
   getCategories(): void {
+    // get list of categories by splitting extension from file name
+
     this.categories = [];
     for (var i = 0; i< this.files.length; i++) {
       var name = this.files[i].split(".");
@@ -117,6 +137,9 @@ export class AppComponent implements OnInit {
   }
 
   toggleCategorySelection(index): void {
+    // function call on select/unselect category
+    // also include/exclude the category from fuse api search
+    
     this.categories[index].selected = !this.categories[index].selected;
     this.fuseService.toggleFileInclusion(this.categories[index].file);
   }
