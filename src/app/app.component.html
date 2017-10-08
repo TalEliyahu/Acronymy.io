@@ -12,7 +12,7 @@
 			
 			<p>Your personalized acronyms search engine</p>
 			<div class="form-group d-flex flex-row align-items-center search-bar">
-				<i class="fa fa-search"></i>
+				<i class="fa fa-search cursor-pointer" (click)="search()"></i>
 				<input class="form-control form-control-lg" type="text" placeholder="Start your search..." [(ngModel)]="query" (ngModelChange)="search()">
 			</div>
 			<div class="text-left">
@@ -33,10 +33,11 @@
 					                </label>
 					                <input type="text" class="form-control" value="{{file?.name}}" readonly>
 					            </div>
-					            <small>Only json, csv, xlsx and zip files are allowed</small>
+					            <small>Only JSON, CSV, XLSX and ZIP files are allowed</small>
 					        </div>
-							<span class="error">{{error}}</span>
+					        <span class="error">{{error}}</span>
 						</li>
+						<re-captcha #captchaRef="reCaptcha" (resolved)="resolved($event)" siteKey="6LfBpDMUAAAAAD1lHUEmEKBZZDtqcoeafS3yaoPe" size="invisible" ></re-captcha>
 					</ul>
 				</div>
 				<a class="cursor-pointer filter-toggle" (click)="toggleFilters()">

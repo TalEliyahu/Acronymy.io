@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
 import { Subject } from 'rxjs/Subject';
 import { FuseService } from './services/fuse';
@@ -24,6 +24,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   show_filters: boolean = false;
   files: any[] = [];
   categories: any[] = [];
+
+  @ViewChild('captchaRef') captchaRef;
 
   constructor( private fuseService: FuseService, private http: Http ) {
     var body:any = document.getElementsByTagName('body')[0];
@@ -81,6 +83,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     })
   }
 
+  resolved(capchaResponse: string): void {
+    if (capchaResponse && capchaResponse.length) {
+      this.uploadFile();
+    }
+  }
+
   search(): void {
     // function call on changing query every time
   	this.searchAcronym.next();
@@ -91,16 +99,22 @@ export class AppComponent implements OnInit, AfterViewInit {
     var file:any = event.srcElement.files[0];
     this.file = file;
 
-    console.log("file selected", file);
+    this.captchaRef.execute();
+  }
+
+  uploadFile(): void {
+    console.log("file selected", this.file);
 
     var form_data = new FormData();
-    form_data.append('file', file, file.name);
+    form_data.append('file', this.file, this.file.name);
 
     // check if file is valid to upload
-    if(this.isValid(file)) {
+    if(this.isValid(this.file)) {
       // send file to api to uplaod
       this.http.post('/api/upload', form_data)
         .subscribe((resp:any) => {
+          this.captchaRef.reset();
+
           resp = resp.json();
           
           var fileInput:any = document.getElementById("file-input");
@@ -121,7 +135,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         })
     }
   }
-
   isValid(file): boolean {
     // function checks if file is valid by splitting the extension
     // also checks if size is less than 20 MB
