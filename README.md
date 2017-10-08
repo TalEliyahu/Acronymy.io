@@ -59,8 +59,8 @@ Use npm to install PM2 service that is required to keep alive node server. To in
 ###Step 3: Configure Webserver (Apache)###
 After downloading the app and installing PM2 service, next thing is to confiure webserver. Install the following modules ```proxy``` and ```proxy_http``` with these commands:
 
-```sudo a2enmod proxy
-sudo a2enmod proxy_http```
+```sudo a2enmod proxy```
+```sudo a2enmod proxy_http```
 
 Once the installation is complete, restart Apache for the changes to take effect:
 
