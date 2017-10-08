@@ -3,7 +3,7 @@
     background-size: cover;
     color: wheat;
     border-radius: 0;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     margin: 0;
     padding: 4rem 0`;
 }
@@ -211,4 +211,8 @@
 
 .form-control:focus {
 	border-color: transparent;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

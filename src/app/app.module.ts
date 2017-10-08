@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { PapaParseModule } from 'ngx-papaparse';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 import { AppComponent } from './app.component';
 import { FuseService } from './services/fuse';
@@ -15,7 +16,8 @@ import { FuseService } from './services/fuse';
     BrowserModule,
     FormsModule,
     HttpModule,
-    PapaParseModule
+    PapaParseModule,
+    RecaptchaModule.forRoot()
   ],
   providers: [ FuseService ],
   bootstrap: [AppComponent]
