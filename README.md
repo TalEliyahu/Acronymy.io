@@ -44,4 +44,87 @@ You can use advance search to select/unselect the categories you want to be incl
 
 ## Deployment
 
-To deploy follow this [tutorial](https://www.1and1.com/cloud-community/learn/application/misc/set-up-a-nodejs-app-for-a-website-with-apache-on-ubuntu-1604/)
+These are required to installed before starting the deployement process:
+- NodeJS
+- Webserver eg. Apache, Nginx
+- Git Bash
+
+###Step 1: Download Acronymy###
+First thing is to clone or download the [acronymy](https://github.com/Singapore-Tech-Entrepreneurs/Acronymy) app to the desired folder. If you have download the app then unzip it in desired folder.
+
+###Step 2: Install PM2 service###
+Use npm to install PM2 service that is required to keep alive node server. To install PM2 use command
+```sudo npm install -g pm2```
+
+###Step 3: Configure Webserver (Apache)###
+After downloading the app and installing PM2 service, next thing is to confiure webserver. Install the following modules ```proxy``` and ```proxy_http``` with these commands:
+
+```sudo a2enmod proxy
+sudo a2enmod proxy_http```
+
+Once the installation is complete, restart Apache for the changes to take effect:
+
+```sudo service apache2 restart```
+
+Next, you will need to add the Apache proxy configurations. These directives need to be inserted into the VirtualHost command block in the site's main Apache configuration file.
+
+By common convention, this Apache configuration file is usually /etc/apache2/sites-available/example.com.conf on Ubuntu.
+
+Note: The location and filename of a site's Apache configuration file can vary.
+
+Edit this file with your editor of choice, for example with the command:
+
+```sudo nano /etc/apache2/sites-available/example.com.conf```
+
+Scroll through the file until you find the VirtualHost command block, which will look like:
+
+```<VirtualHost *:80>
+ServerName example.com
+    <Directory "/var/www/example.com/html">
+    AllowOverride All
+    </Directory>
+</VirtualHost>```
+
+Add the following to VirtualHost command block:
+
+   ```ProxyRequests Off
+   ProxyPreserveHost On
+   ProxyVia Full
+   <Proxy *>
+      Require all granted
+   </Proxy>
+
+   <Location /nodejs>
+      ProxyPass http://127.0.0.1:8080
+      ProxyPassReverse http://1127.0.0.1:8080
+   </Location>```
+
+Be sure to put these lines outside any Directory command blocks. For example:
+
+```<VirtualHost *:80>
+	ServerName example.com
+
+   ProxyRequests Off
+   ProxyPreserveHost On
+   ProxyVia Full
+   <Proxy *>
+      Require all granted
+   </Proxy>
+
+   <Location /nodejs>
+      ProxyPass http://127.0.0.1:8080
+      ProxyPassReverse http://127.0.0.1:8080
+   </Location>
+
+    <Directory "/var/www/example.com/html">
+    AllowOverride All
+    </Directory>
+</VirtualHost>```
+
+Save and exit the file, then restart Apache for the changes to take effect:
+
+```sudo services apache2 restart```
+
+After Apache restarts, you can test the application by viewing it in a browser. 
+
+
