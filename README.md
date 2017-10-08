@@ -59,8 +59,10 @@ Use npm to install PM2 service that is required to keep alive node server. To in
 ###Step 3: Configure Webserver (Apache)###
 After downloading the app and installing PM2 service, next thing is to confiure webserver. Install the following modules ```proxy``` and ```proxy_http``` with these commands:
 
-```sudo a2enmod proxy```
-```sudo a2enmod proxy_http```
+```
+sudo a2enmod proxy
+sudo a2enmod proxy_http
+```
 
 Once the installation is complete, restart Apache for the changes to take effect:
 
@@ -78,30 +80,35 @@ Edit this file with your editor of choice, for example with the command:
 
 Scroll through the file until you find the VirtualHost command block, which will look like:
 
-```<VirtualHost *:80>
-ServerName example.com
+```
+<VirtualHost *:80>
+	ServerName example.com
     <Directory "/var/www/example.com/html">
     AllowOverride All
     </Directory>
-</VirtualHost>```
+</VirtualHost>
+```
 
 Add the following to VirtualHost command block:
 
-   ```ProxyRequests Off
-   ProxyPreserveHost On
-   ProxyVia Full
-   <Proxy *>
-      Require all granted
-   </Proxy>
+```
+ProxyRequests Off
+ProxyPreserveHost On
+ProxyVia Full
+<Proxy *>
+  Require all granted
+</Proxy>
 
-   <Location /nodejs>
-      ProxyPass http://127.0.0.1:8080
-      ProxyPassReverse http://1127.0.0.1:8080
-   </Location>```
+<Location /nodejs>
+  ProxyPass http://127.0.0.1:8080
+  ProxyPassReverse http://1127.0.0.1:8080
+</Location>
+```
 
 Be sure to put these lines outside any Directory command blocks. For example:
 
-```<VirtualHost *:80>
+```
+<VirtualHost *:80>
 	ServerName example.com
 
    ProxyRequests Off
@@ -119,7 +126,8 @@ Be sure to put these lines outside any Directory command blocks. For example:
     <Directory "/var/www/example.com/html">
     AllowOverride All
     </Directory>
-</VirtualHost>```
+</VirtualHost>
+```
 
 Save and exit the file, then restart Apache for the changes to take effect:
 
