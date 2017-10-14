@@ -1,4 +1,290 @@
+body, html {
+    font-family: 'Raleway', sans-serif;
+    position: relative;
+}
+@media (min-width:768px) {
+    .vcenter {
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+    }
+}
+
+@media (max-width:544px) {
+    .search-area h1 {
+      font-size: 52px;
+    }
+}
+
+/* SEARCH AREA */
 .search-area {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 60px 0px 40px 0px;
+    background: rgb(32,76,102);
+    background: -moz-radial-gradient(center, ellipse cover, rgba(32,76,102,1) 0%, rgba(21,50,67,1) 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(32,76,102,1) 0%,rgba(21,50,67,1) 100%);
+    background: radial-gradient(ellipse at center, rgba(32,76,102,1) 0%,rgba(21,50,67,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#204c66', endColorstr='#153243',GradientType=1 );
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+.search-area:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    content: ' ';
+    z-index: 1;
+}
+.search-area .container {
+    position: relative;
+    z-index: 2;
+}
+.search-area h1 {
+    font-size: 72px;
+    font-weight: 300;
+    margin: 0;
+    font-family: 'Ovo', sans-serif;
+    text-transform: uppercase;
+}
+.search-area h4 {
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0;
+    opacity: 0.5;
+}
+.search-area .form-group {
+    position: relative;
+    display: block;
+    margin-top: 30px;
+}
+.search-area .form-group img {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 16px;
+    width: 16px;
+    height: 16px;
+    bottom: 0;
+    margin: auto;
+}
+.search-area .form-group .form-control {
+    position: relative;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.1);
+    height: auto;
+    font-size: 18px;
+    font-weight: normal;
+    color: #fff;
+    padding: 15px 15px;
+    box-shadow: none;
+    padding-left: 62px;
+    -webkit-transition:0.3s ease all;
+    -moz-transition:0.3s ease all;
+    -o-transition:0.3s ease all;
+    transition:0.3s ease all;
+}
+.search-area .form-group:before {
+    position: absolute;
+    top: 30%;
+    left: 46px;
+    width: 1px;
+    height: 40%;
+    background: #fff;
+    content: ' ';
+    opacity: 0.1;
+}
+.search-area .form-group .form-control:hover {
+    background: rgba(255,255,255,0.05);
+}
+.search-area .form-group .form-control:focus {
+    background: rgba(0,0,0,0.25);
+    box-shadow: rgba(0,0,0,0.1) 0px 5px 10px;
+}
+.search-area .advanced {
+    font-size: 12px;
+    font-family: 'Arial', sans-serif;
+    color: rgba(255,255,255,0.5);
+}
+.search-area .advanced:hover,
+.search-area .advanced:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+.grey-area {
+    position: relative;
+    display: block;
+    background: #153243;
+}
+.grey-area #advancedFilters {
+    display: none;
+}
+.grey-area .advanced {
+    cursor: pointer;
+    color: rgba(255,255,255,0.5);
+    padding: 15px 0px;
+    display: block;
+    font-size: 14px;
+    -webkit-transition:0.3s ease all;
+    -moz-transition:0.3s ease all;
+    -o-transition:0.3s ease all;
+    transition:0.3s ease all;
+}
+.grey-area .advanced:hover,
+.grey-area .advanced:focus {
+    color: #fff;
+    text-decoration: none;
+}
+.grey-area #advancedFilters .checkboxes {
+    padding-top: 15px;
+}
+.grey-area #advancedFilters .checkbox-inline {
+    padding-left: 20px;
+    cursor: pointer !important;
+    width: calc(100% / 2);
+    margin-left: 0px;
+}
+.grey-area #advancedFilters .checkbox-inline label {
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+    font-weight: normal;
+    position: relative;
+    cursor: pointer !important;
+    display: block;
+}
+.grey-area #advancedFilters .checkbox-inline:hover label {
+    color: rgba(255,255,255,0.85);
+}
+.grey-area #advancedFilters .checkbox-inline label input {
+    opacity: 0;
+}
+.grey-area #advancedFilters .checkbox-inline label:after {
+    position: absolute;
+    top: 0;
+    left: -20px;
+    width: 16px;
+    height: 16px;
+    background: rgba(255,255,255,0.15);
+    content: ' ';
+    border-radius: 4px;
+    -webkit-transition:0.3s ease all;
+    -moz-transition:0.3s ease all;
+    -o-transition:0.3s ease all;
+    transition:0.3s ease all;
+}
+.grey-area #advancedFilters .checkbox-inline label:before {
+    position: absolute;
+    top: 0;
+    left: -20px;
+    width: 16px;
+    height: 16px;
+    font-family: 'FontAwesome';
+    content: '\f00c';
+    border-radius: 4px;
+    -webkit-transition:0.3s ease all;
+    -moz-transition:0.3s ease all;
+    -o-transition:0.3s ease all;
+    transition:0.3s ease all;
+    font-size: 11px;
+    text-align: center;
+    opacity: 0;
+}
+.grey-area #advancedFilters .checkbox-inline:hover label:after {
+    background: rgba(255,255,255,0.25);
+}
+.grey-area #advancedFilters .checkbox-inline.active label:before {
+    opacity: 1;
+}
+.grey-area .upload-time {
+    position: relative;
+    display: block;
+    background: rgba(255,255,255,0.05);
+    text-align: center;
+    padding: 5px 15px;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+.grey-area .upload-time:hover {
+    background: rgba(255,255,255,0.08);
+}
+.grey-area .upload-time p {
+    display: block;
+    margin: 0;
+    font-weight: 400;
+}
+.grey-area .upload-time p span {
+    display: block;
+    font-size: 11px;
+    opacity: 0.5;
+    font-weight: normal;
+}
+.grey-area input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.results {
+    padding: 40px 0px;
+}
+.results .result + .result {
+    margin-top: 15px;
+}
+.results .result {
+    padding: 10px;
+    background: rgb(255,255,255);
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(245,245,245,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(245,245,245,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#efefef',GradientType=0 );
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+.results .result b {
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+}
+.results .result span {
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+    opacity: 0.5;
+}
+.results .result i {
+    display: block;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    opacity: 0.5;
+}
+
+.error {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 0;
+  color: red;
+  font-size: 13px;
+}
+
+.show { display: block; }
+.hide { display: hide; }
+
+/*.search-area {
 	background: #383835;
     background-size: cover;
     color: wheat;
@@ -215,4 +501,4 @@
 
 .cursor-pointer {
   cursor: pointer;
-}
+}*/

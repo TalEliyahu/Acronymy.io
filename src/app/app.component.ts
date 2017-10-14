@@ -6,6 +6,7 @@ import { FuseService } from './services/fuse';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
+declare var $: any;
 
 @Component({
   selector: 'app-root',
@@ -161,6 +162,15 @@ export class AppComponent implements OnInit, AfterViewInit {
   toggleFilters(): void {
     // toggle advance filters option
     this.show_filters = !this.show_filters;
+
+    $('.advanced').toggleClass("active");
+    if($('.advanced').hasClass("active")) {
+        $(".advanced").html('Hide advanced filters <i class="fa fa-fw fa-angle-up"></i>');
+        $("#advancedFilters").slideToggle();
+    } else {
+        $(".advanced").html('Show advanced filters <i class="fa fa-fw fa-angle-down"></i>');
+        $("#advancedFilters").slideToggle();
+    }
   }
 
   getCategories(): void {

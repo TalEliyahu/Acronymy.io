@@ -1,13 +1,76 @@
-<section class="jumbotron search-area">
+<div  id="main-section">
+	<div class="search-area">
+	    <div class="container">
+	        <h1>Acronymy</h1>
+	        <h4>Your personalized acronyms search engine</h4>
+	        <div class="buttons" style="margin-top:15px;margin-bottom:-15px;">
+	            <iframe src="https://ghbtns.com/github-btn.html?user=Singapore-Tech-Entrepreneurs&repo=Acronymy.io&type=star&count=true" frameborder="0" scrolling="0" width="90px" height="20px"></iframe>
+
+				<iframe src="https://ghbtns.com/github-btn.html?user=Singapore-Tech-Entrepreneurs&repo=Acronymy.io&type=fork&count=true" frameborder="0" scrolling="0" width="90px" height="20px"></iframe>
+	        </div>
+	        <div class="d-flex flex-row justify-content-center">
+	            <div class="col-md-4 col-sm-12 col-12">
+	                <div class="form-group">
+	                    <!-- <input type="text" class="form-control"> -->
+	                    <img src="assets/imgs/search.png">
+	                    <input class="form-control" type="text" placeholder="Search..." [(ngModel)]="query" (ngModelChange)="search()">
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<div class="grey-area">
+	    <div class="container">
+	        <div class="d-flex flex-row justify-content-center">
+	            <div class="col-md-4 col-sm-12 col-12">
+	                <div id="advancedFilters">
+	                    <div class="checkboxes d-flex flex-row flex-wrap">
+							<div class="checkbox-inline {{category.selected ? 'active' : ''}}" *ngFor="let category of categories; let i=index"  (click)="toggleCategorySelection(i)">
+	                            <label>
+	                                <input type="checkbox" name="{{category.name}}" id="{{category.name}}" checked>
+	                                {{category.name}}
+	                            </label>
+	                        </div>
+	                    </div>
+	                    <div class="upload-time">
+	                        <input id="file-input" type="file" (change)="fileUploaded($event)">
+	                        <p>Please select a file.<span>Only JSON, CSV, XLSX And ZIP Files Are Allowed</span></p>
+	                    </div>
+	                    <p class="error" *ngIf="error && error.length">{{error}}</p>
+	                    <re-captcha #captchaRef="reCaptcha" (resolved)="resolved($event)" siteKey="6LfBpDMUAAAAAD1lHUEmEKBZZDtqcoeafS3yaoPe" size="invisible" ></re-captcha>
+	                </div>
+	                <div class="text-center">
+	                    <a class="advanced" (click)="toggleFilters()">Show Advance Filters <i class="fa fa-fw fa-angle-down"></i></a>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>                   
+</div>
+
+<div class="results">
+    <div class="container">
+        <div class="d-flex flex-column align-items-center">
+            <div class="col-md-6 col-sm-12 col-12" *ngFor="let next_cat of results">
+                <div class="result" *ngFor="let next_item of next_cat.result">
+                    <b>{{next_item.Key || next_item.key}}</b>
+                    <span *ngIf="next_item.abbreviation || next_item.Abbreviation">{{next_item.abbreviation || next_item.Abbreviation}}</span>
+                    <i *ngIf="next_item.description || next_item.Description">{{next_item.description || next_item.Description}}</i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <section class="jumbotron search-area">
 	<div class="d-flex flex-row justify-content-center text-center">
 		<div class="col-md-5" id="main-section">
 			<div class="">
 				<h1>Acronymy</h1>
-				<!-- Place this tag where you want the button to render. -->
-				<a class="github-button" href="https://github.com/Singapore-Tech-Entrepreneurs/acronymy" data-show-count="true" data-size="large" aria-label="Star STE/Acronymy on GitHub" style="margin: 10px 0">Star</a>
+				
+				<iframe src="https://ghbtns.com/github-btn.html?user=Singapore-Tech-Entrepreneurs&repo=Acronymy.io&type=star&count=true" frameborder="0" scrolling="0" width="90px" height="20px"></iframe>
 
-				<!-- Place this tag where you want the button to render. -->
-				<a class="github-button" href="https://github.com/Singapore-Tech-Entrepreneurs/acronymy/fork" data-show-count="true" data-size="large"  aria-label="Fork STE/Acronymy on GitHub" style="margin: 10px 0">Fork</a>
+				<iframe src="https://ghbtns.com/github-btn.html?user=Singapore-Tech-Entrepreneurs&repo=Acronymy.io&type=fork&count=true" frameborder="0" scrolling="0" width="90px" height="20px"></iframe>
 			</div>
 			
 			<p>Your personalized acronyms search engine</p>
@@ -23,7 +86,6 @@
 					        <label for="{{category.name}}" (click)="toggleCategorySelection(i)">{{category.name}}</label>
 						</li>
 						<li class="upload-file d-flex flex-row justify-content-between align-items-center">
-							<!-- <input id="file-input" type="file" placeholder="Upload File" (change)="fileUploaded($event)"> -->
 							<div>
 								<div class="input-group">
 					                <label class="input-group-btn">
@@ -37,7 +99,6 @@
 					        </div>
 					        <span class="error">{{error}}</span>
 						</li>
-						<re-captcha #captchaRef="reCaptcha" (resolved)="resolved($event)" siteKey="6LfBpDMUAAAAAD1lHUEmEKBZZDtqcoeafS3yaoPe" size="invisible" ></re-captcha>
 					</ul>
 				</div>
 				<a class="cursor-pointer filter-toggle" (click)="toggleFilters()">
@@ -49,14 +110,10 @@
 </section>
 
 <section class="search-result">
-	<!-- <input type="text" placeholder="Search.." [(ngModel)]="query" (ngModelChange)="search()">
-	<input type="file" placeholder="Upload File" (change)="fileUploaded($event)"> {{progress}}
-	<div class="error" style="color: red">{{error}}</div>	 -->
 	
 	<div class="results" *ngIf="results.length">
 		<div class="result col-md-5" *ngFor="let next_cat of results">
 			<div *ngIf="next_cat.result && next_cat.result.length">
-				<!-- <h3>{{next_cat.category}}</h3> -->
 				<div class="cat-result" *ngFor="let next_item of next_cat.result">
 					<b style="text-transform: uppercase;">{{next_item.Key}}</b>
 					<p style="text-transform: capitalize;" *ngIf="next_item.abbreviation || next_item.Abbreviation">{{next_item.abbreviation || next_item.Abbreviation}}</p>
@@ -66,3 +123,4 @@
 		</div>
 	</div>
 </section>
+ -->
