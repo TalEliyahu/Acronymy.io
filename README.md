@@ -4,6 +4,8 @@
 
 Raheel Iftikhar 
 
+Filip Todorov @FilipTodorov
+
 ## Install NodeJS
 
 Follow this tutorial and [install NodeJS](https://docs.npmjs.com/getting-started/installing-node) based on your operating system. You can check that Node is installed by writing these commands on console 
